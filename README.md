@@ -1,2 +1,4 @@
 # library-management
-API that manages library.
+API that manages library. STD22059-H1
+This repository is a todo for OpenAPI from PROG3
+This is a link for a Swagger UI : https://petstore.swagger.io/?url=https://raw.githubusercontent.com/Ravo1401/library-management/TD1/docs/api.yml#/default/deleteBooks
