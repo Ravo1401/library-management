@@ -105,7 +105,7 @@ paths:
       operationId: deleteAuthors
       parameters:
         - in: query
-          name: bookName
+          name: authorName
           description: Delete author by given name
           required: false
           schema:
