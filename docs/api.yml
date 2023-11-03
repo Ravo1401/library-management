@@ -18,7 +18,6 @@ paths:
           required: false
           schema:
             type: string
-        #TODO3: add parameter to filter books by intervals of dates of the releaseDate
         - in: query
           name: startDate
           description: Filter books with a release date greater than or equal to this date
@@ -61,20 +60,59 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/Book'
-  #TODO2: complete GET (can be filtered by name) - PUT - DELETE
+  /authors:
+    get:
+      summary: Get all authors
+      description: The returned authors are ordered by updated datetime.
+      operationId: getAuthor
+      parameters:
+        - in: query
+          name: authorName
+          description: Filter return author by given name
+          required: false
+          schema:
+            type: string
+      responses:
+        200:
+          description: The list of filtered author
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Author'
+    put:
+      summary: Create or update a list of author
+      operationId: crupdateAuthors
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: '#/components/schemas/Author'
+      responses:
+        200:
+          description: The list of created or updated authors
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Author'
     delete:
-      summary: Delete books
-      operationId: deleteBooks
+      summary: Delete authors
+      operationId: deleteAuthors
       parameters:
         - in: query
           name: bookName
-          description: Delete books by given name
+          description: Delete author by given name
           required: false
           schema:
             type: string
       responses:
         204:
-          description: Books successfully deleted
+          description: Authors successfully deleted
 components:
   schemas:
     Book:
@@ -85,7 +123,6 @@ components:
         bookName:
           type: string
         author:
-          #TODO1: set it as a component with properties : id, name, sex (M or F)
           type: string
         pageNumbers:
           type: integer
@@ -110,3 +147,4 @@ components:
           enum:
             - M
             - F
+
