@@ -5,9 +5,14 @@ info:
   description: STD22059
 servers:
   - url: https://library.com
+tags:
+  - Books
+  - Authors
 paths:
   /books:
     get:
+      tags:
+        - Books
       summary: Get all books
       description: The returned books are ordered by updated datetime.
       operationId: getBooks
@@ -19,19 +24,23 @@ paths:
           schema:
             type: string
         - in: query
-          name: startDate
-          description: Filter books with a release date greater than or equal to this date
-          required: false
+          name: releaseDateMin
+          description: |
+            If  `releaseDateMax` is not provided, `releaseDateMin` is ignored.
+            `releaseDateMin` can not be after `releaseDateMax`.
           schema:
             type: string
             format: date
+          required: false
         - in: query
-          name: endDate
-          description: Filter books with a release date less than or equal to this date
-          required: false
+          name: releaseDateMax
+          description: |
+            If  `releaseDateMin` is not provided, `releaseDateMax` is ignored.
+            `releaseDateMax` can not be after `releaseDateMin`.
           schema:
             type: string
             format: date
+          required: false
       responses:
         200:
           description: The list of filtered books
@@ -42,6 +51,8 @@ paths:
                 items:
                   $ref: '#/components/schemas/Book'
     put:
+      tags:
+        - Books
       summary: Create or update a list of books
       operationId: crupdateBooks
       requestBody:
@@ -63,18 +74,21 @@ paths:
   /authors:
     get:
       summary: Get all authors
-      description: The returned authors are ordered by updated datetime.
-      operationId: getAuthor
+      operationId: getAuthors
+      tags:
+        - Authors
       parameters:
-        - in: query
-          name: authorName
-          description: Filter return author by given name
-          required: false
+        - name: authorName
+          in: query
+          description: |
+            Filter returned authors by given name. 
+            If not provided, then list is not filtered.
           schema:
             type: string
+          required: false
       responses:
         200:
-          description: The list of filtered author
+          description: The list of filtered authors
           content:
             application/json:
               schema:
@@ -82,8 +96,10 @@ paths:
                 items:
                   $ref: '#/components/schemas/Author'
     put:
-      summary: Create or update a list of author
+      summary: Create or update authors
       operationId: crupdateAuthors
+      tags:
+        - Authors
       requestBody:
         content:
           application/json:
@@ -102,18 +118,20 @@ paths:
                   $ref: '#/components/schemas/Author'
   /authors/{aId}:
     delete:
-      summary: Delete authors
-      operationId: deleteAuthors
+      summary: Delete an author
+      operationId: deleteAuthor
+      tags:
+        - Authors
       parameters:
         - name: aId
           in: path
-          description: Delete author by given name
+          description: Author identifier to be deleted
           schema:
             type: string
-          required: true 
+          required: true
       responses:
         200:
-          description: Authors successfully deleted
+          description: The author deleted
           content:
             application/json:
               schema:
@@ -128,7 +146,7 @@ components:
         bookName:
           type: string
         author:
-          $ref : '#ref/components/schemas/Author'
+          $ref: '#/components/schemas/Author'
         pageNumbers:
           type: integer
         topic:
@@ -145,21 +163,12 @@ components:
       properties:
         id:
           type: string
-        name:
+        authorName:
           type: string
-        sex: 
+        sex:
           $ref: '#/components/schemas/Sex'
     Sex:
       type: string
       enum:
         - M
         - F
-    CrupdateBook:
-      type: object
-      properties:
-        id:
-          type: string
-        bookName:
-          type: string
-        pageNumbers:
-
