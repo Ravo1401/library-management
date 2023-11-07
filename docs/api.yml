@@ -124,7 +124,7 @@ paths:
             schema:
               type: array
               items:
-                $ref: '#/components/schemas/crupdateBook'
+                $ref: '#/components/schemas/Author'
       responses:
         200:
           description: The list of created or updated authors
@@ -133,7 +133,7 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/Book'
+                  $ref: '#/components/schemas/Author'
   /authors/{aId}:
     delete:
       summary: Delete an author
