@@ -76,21 +76,34 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/Book'
-  /authors:
+  /authors/name:
     get:
-      summary: Get all authors
+      summary: Get all authors or filter by name
+      description: Retrieve a list of authors or filtered by name
       operationId: getAuthors
       tags:
         - "Authors"
       parameters:
-        - name: authorName
-          in: query
-          description: |
-            Filter returned authors by given name. 
-            If not provided, then list is not filtered.
+        - in: query
+          name: authorName 
+          description: Filter authors by name 
+          required: false
           schema:
             type: string
+        - in: query
+          name: page
+          description: "Page number for pagination (default: 1)"
           required: false
+          schema:
+            type: integer
+            default: 1
+        - in: query
+          name: pageSize
+          description: "Number of items per page (default: 60)"
+          required: false
+          schema:
+            type: integer
+            default: 60
       responses:
         200:
           description: The list of filtered authors
