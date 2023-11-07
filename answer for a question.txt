@@ -1,0 +1,31 @@
+Question dans la vidéo: pour faire un delete de plusieurs authors
+/authors:
+  delete:
+    summary: Delete multiple authors
+    operationId: deleteAuthors
+    tags:
+      - Authors
+    requestBody:
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              type: string
+    responses:
+      200:
+        description: The list of deleted authors
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: '#/components/schemas/Author'
+
+
+3.a Les paginations sont nécéssaires pour limiter la taille des réponses 
+4.a Oui, on peut la gérer car les en-têtes HTTP peuvent être utilisés pour transmettre des 
+informations de pagination, mais cela est moins courant que l'utilisation des paramètres de 
+requête.
+4.b Gérer la pagination à travers les en-têtes de la requete est une option, mais ce n'est
+pas la meilleure pratique des API REST et cela peut compliquer la conception de l'API
