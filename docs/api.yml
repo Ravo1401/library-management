@@ -5,14 +5,11 @@ info:
   description: STD22059
 servers:
   - url: https://library.com
-tags:
-  - Books
-  - Authors
 paths:
   /books:
     get:
       tags:
-        - Books
+        - "Books"
       summary: Get all books
       description: The returned books are ordered by updated datetime.
       operationId: getBooks
@@ -50,21 +47,29 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/Book'
+
+  /books/{bookId}/authors/{authorId}:
     put:
       tags:
-        - Books
-      summary: Create or update a list of books
-      operationId: crupdateBooks
-      requestBody:
-        content:
-          application/json:
-            schema:
-              type: array
-              items:
-                $ref: '#/components/schemas/Book'
+        - "Books"
+      summary: Assign author to a book
+      operationId: assignAuthorToBook
+      parameters:
+        - in: path
+          name: bookId
+          description: Id of book to update
+          required: true
+          schema:
+            type: string
+        - in: path
+          name: authorId
+          description: Id of the authorto be assigned to the book
+          required: true
+          schema:
+            type: string
       responses:
         200:
-          description: The list of created or updated books
+          description: Author assigned to the book successfully
           content:
             application/json:
               schema:
@@ -76,7 +81,7 @@ paths:
       summary: Get all authors
       operationId: getAuthors
       tags:
-        - Authors
+        - "Authors"
       parameters:
         - name: authorName
           in: query
@@ -99,14 +104,14 @@ paths:
       summary: Create or update authors
       operationId: crupdateAuthors
       tags:
-        - Authors
+        - "Authors"
       requestBody:
         content:
           application/json:
             schema:
               type: array
               items:
-                $ref: '#/components/schemas/Author'
+                $ref: '#/components/schemas/crupdateBook'
       responses:
         200:
           description: The list of created or updated authors
@@ -115,7 +120,7 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/Author'
+                  $ref: '#/components/schemas/Book'
   /authors/{aId}:
     delete:
       summary: Delete an author
