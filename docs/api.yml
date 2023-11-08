@@ -303,42 +303,47 @@ paths:
                 items:
                   $ref: '#/components/schemas/Book'
     responses:
-      200: 
-        description: list of imported books 
-        content:  
-          application/json:
-            schema: 
-              allOf:
-                - $ref: "#/components/responses/CommonResponse"
-                - type: object
-                  properties:
-                    body:
-                      $ref: "#/components/schemas/Book"
+        200: 
+          description: list of imported books 
+          content:  
+            application/json:
+              schema: 
+                allOf:
+                  - $ref: "#/components/responses/CommonResponse"
+                  - type: object
+                    properties:
+                      body:
+                        $ref: "#/components/schemas/Book"
   /authors/import:
-    post: 
+    post:
       tags:
         - "Authors"
-      summary: import authors from JSON file 
-      operationId: importAuthorsFromJson
-      requestBody: 
+      summary: Import authors from JSON or Excel file
+      operationId: importAuthors
+      requestBody:
         content:
           application/json:
-            schema: 
+            schema:
               type: array
-              items: 
-                $ref: "#/components/schemas/Author"
+              items:
+                $ref: "#/components/schemas/ImportAuthor"
+          application/vnd.openxmlformats-officedocument.spreadsheetml.sheet:
+            schema:
+              type: array
+              items:
+                $ref: "#/components/schemas/ImportAuthorExcel"
     responses:
       200:
         description: List of imported authors
         content:
           application/json:
-            schema: 
+            schema:
               allOf:
-                  - $ref: "#/components/responses/CommonResponse"
-                  - type: object
-                    properties:
-                      body:
-                        $ref: "#/components/schemas/Author"
+                - $ref: "#/components/responses/CommonResponse"
+                - type: object
+                  properties:
+                    body:
+                      $ref: "#/components/schemas/Author"
 components:
   schemas:
     crupdateBook:
@@ -393,6 +398,21 @@ components:
           type: string
         authorId:
           type: string
+    ImportAuthor:
+      type: object
+      properties:
+        authorName:
+          type: string
+        sex:
+          $ref: '#/components/schemas/Sex'
+    
+    ImportAuthorExcel:
+      type: object
+      properties:
+        authorName:
+          type: string
+        sex:
+          $ref: '#/components/schemas/Sex'
   parameters:        
       QueryPagination:
         name: page
