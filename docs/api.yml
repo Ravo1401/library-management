@@ -177,6 +177,27 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/CrupdateTopic'
+    put:
+      summary: create or update a topic 
+      operationId: CrupdateTopic
+      tags:
+        - "Topics"
+      requestBody: 
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: "#/components/schemas/CrupdateTopic"
+      responses:
+        200:
+          description: Teh list of the topic crupdated
+          content:
+            application/json:
+              schema: 
+                type: array
+                items: 
+                  $ref: '#/components/schemas/CrupdateTopic'
 components:
   schemas:
     crupdateBook:
@@ -202,6 +223,8 @@ components:
     CrupdateTopic:
       type: object
       properties:
+        id:
+          type: string
         topicName:
           type: string
           enum:
