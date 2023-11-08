@@ -198,6 +198,26 @@ paths:
                 type: array
                 items: 
                   $ref: '#/components/schemas/CrupdateTopic'
+  /delete/{aId}:
+    delete:
+        tags:
+          - "Topics"
+        summary: Delete a topic 
+        operationId: deleteTopic
+        parameters:
+          - name: aId
+            in: path
+            description: Topic to deleted
+            schema:
+              type: string
+            required: true
+        responses:
+          200:
+            description: Teh topic to be deleted
+            content:
+              application/json:
+                schema:
+                  $ref: '#/components/schemas/topic'
 components:
   schemas:
     crupdateBook:
