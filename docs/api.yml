@@ -247,6 +247,32 @@ paths:
                 type: array
                 items:
                   $ref: "#/components/schemas/topic"
+  /topics/{topicId}/authors/{authorId}:
+    put:
+      tags:
+        - "Topics"
+      summary: assign author to the topic
+      operationId: addAuthorTopic
+      parameters:
+        - in: path
+          name: topicId
+          schema: 
+            type: string
+          required: true
+        - in: path
+          name: authorId
+          schema: 
+            type: string
+          required: true
+      responses:
+        200: 
+          description: create or update authorTopic
+          content:
+            application/json:
+              schema: 
+                type: array
+                items: 
+                  $ref: '#/components/schemas/topic'
 components:
   schemas:
     crupdateBook:
