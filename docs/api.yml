@@ -376,11 +376,16 @@ components:
         - M
         - F
     Book:
+      type: object
+
       allOf:
-        - $ref: '#/components/schemas/crupdateBook'
+        - $ref: "#/components/schemas/crupdateBook"
+        - type: object
       properties:
-        author: 
-          $ref: '#/components/schemas/Author'
+          file_type:
+              enum:
+                - JSON
+                - Excel
     UpdateBookAuthor:
       type: object
       properties:
