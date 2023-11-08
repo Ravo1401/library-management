@@ -198,3 +198,10 @@ components:
       properties:
         author: 
           $ref: '#/components/schemas/Author'
+    UpdateBookAuthor:
+      type: object
+      properties:
+        bookId:
+          type: string
+        authorId:
+          type: string
