@@ -290,30 +290,33 @@ paths:
                       body:
                         $ref: "#/components/schemas/Author"
   /books/import:
-    post: 
+    post:
       tags:
         - "Books"
-      summary: Import books from JSON file 
-      operationId: importBooksFromJson
+      summary: Import books from JSON or Excel file
+      operationId: importBooks
       requestBody:
+        required: true
+        description: Import books from a JSON or Excel file
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ImportBookJSON'
+
+      responses:
+        200:
+          description: List of imported books
           content:
             application/json:
-              schema: 
-                type: array
-                items:
-                  $ref: '#/components/schemas/Book'
-      responses:
-        200: 
-          description: list of imported books 
-          content:  
-            application/json:
-              schema: 
+              schema:
                 allOf:
                   - $ref: "#/components/responses/CommonResponse"
                   - type: object
                     properties:
                       body:
-                        $ref: "#/components/schemas/Book"
+                        oneOf:
+                          - $ref: "#/components/schemas/BookJSON"
+                          - $ref: "#/components/schemas/BookExcel"
   /authors/import:
     post:
       tags:
@@ -335,7 +338,7 @@ paths:
                 authors:
                   type: array
                   items:
-                    $ref: '#/components/schemas/ImportAuthor'
+                    $ref: '#/components/schemas/Author'
       responses:
         200:
           description: List of imported authors
@@ -411,7 +414,6 @@ components:
           type: string
         sex:
           $ref: '#/components/schemas/Sex'
-    
     ImportAuthorExcel:
       type: object
       properties:
@@ -419,6 +421,49 @@ components:
           type: string
         sex:
           $ref: '#/components/schemas/Sex'
+    ImportBookJSON:
+      type: object
+      properties:
+        file_type:
+          type: string
+          enum:
+            - JSON
+        books:
+          type: array
+          items:
+            $ref: '#/components/schemas/BookJSON'
+    BookJSON:
+      type: object
+      properties:
+        bookName:
+          type: string
+        author:
+          $ref: '#/components/schemas/Author'
+        pageNumbers:
+          type: integer
+        topic:
+          type: string
+          enum:
+            - ROMANCE
+            - COMEDY
+            - OTHER
+        releaseDate:
+          type: string
+          format: date
+    BookExcel:
+      type: object
+      properties:
+        bookName:
+          type: string
+        author:
+          $ref: '#/components/schemas/Author'
+        pageNumbers:
+          type: integer
+        topic:
+          type: string
+        releaseDate:
+          type: string
+          format: date
   parameters:        
       QueryPagination:
         name: page
