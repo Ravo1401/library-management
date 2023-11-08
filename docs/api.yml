@@ -156,6 +156,27 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Author'
+  /topics:
+    get:  
+      summary: get all topic 
+      tags:
+      - "Topics"
+      operationId: getTopic
+      parameters:
+        - in: query
+          name: topicName 
+          description: Filter topic 
+          schema:
+            type: string
+      responses:
+        200:
+          description: Topic filtered
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/CrupdateTopic'
 components:
   schemas:
     crupdateBook:
@@ -178,6 +199,17 @@ components:
         releaseDate:
           type: string
           format: date
+    CrupdateTopic:
+      type: object
+      properties:
+        topicName:
+          type: string
+          enum:
+            - ROMANCE
+            - ADVENTURE
+            - OTHER
+    topic:
+      type: object
     Author:
       type: object
       properties:
