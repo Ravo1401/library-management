@@ -110,6 +110,48 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/Book'
+        400:
+          description: Bad request 
+          content:
+            application/json:
+              schema: 
+                type: array
+                properties:
+                  status:
+                    type: object
+                    properties:
+                      code:
+                        type: integer
+                      message:
+                        type: string
+        403:
+          description: Acces denied with the data
+          content:
+            application/json:
+              schema: 
+                type: array
+                properties:
+                  status:
+                    type: object
+                    properties:
+                      code:
+                        type: integer
+                      message:
+                        type: string
+        500:
+          description: Internal server error
+          content:
+            application/json:
+              schema : 
+                type: array
+                properties:
+                  status:
+                    type: object
+                    properties:
+                      code: 
+                        type: integer
+                      message:
+                        type: string
   /authors/name:
     get:
       summary: Get all authors or filter by name
@@ -149,6 +191,48 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/Author'
+        400:
+          description: Bad request 
+          content:
+            application/json:
+              schema: 
+                type: array
+                properties:
+                  status:
+                    type: object
+                    properties:
+                      code:
+                        type: integer
+                      message:
+                        type: string
+        403:
+          description: Acces denied with the data
+          content:
+            application/json:
+              schema: 
+                type: array
+                properties:
+                  status:
+                    type: object
+                    properties:
+                      code:
+                        type: integer
+                      message:
+                        type: string
+        500:
+          description: Internal server error
+          content:
+            application/json:
+              schema : 
+                type: array
+                properties:
+                  status:
+                    type: object
+                    properties:
+                      code: 
+                        type: integer
+                      message:
+                        type: string
     put:
       summary: Create or update authors
       operationId: crupdateAuthors
@@ -170,6 +254,48 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/Author'
+        400:
+          description: Bad request 
+          content:
+            application/json:
+              schema: 
+                type: array
+                properties:
+                  status:
+                    type: object
+                    properties:
+                      code:
+                        type: integer
+                      message:
+                        type: string
+        403:
+          description: Acces denied with the data
+          content:
+            application/json:
+              schema: 
+                type: array
+                properties:
+                  status:
+                    type: object
+                    properties:
+                      code:
+                        type: integer
+                      message:
+                        type: string
+        500:
+          description: Internal server error
+          content:
+            application/json:
+              schema : 
+                type: array
+                properties:
+                  status:
+                    type: object
+                    properties:
+                      code: 
+                        type: integer
+                      message:
+                        type: string
   /authors/{aId}:
     delete:
       summary: Delete an author
@@ -190,6 +316,34 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Author'
+        400:
+          description: Bad request 
+          content:
+            application/json:
+              schema: 
+                type: array
+                properties:
+                  status:
+                    type: object
+                    properties:
+                      code:
+                        type: integer
+                      message:
+                        type: string
+        500:
+          description: Internal server error
+          content:
+            application/json:
+              schema : 
+                type: array
+                properties:
+                  status:
+                    type: object
+                    properties:
+                      code: 
+                        type: integer
+                      message:
+                        type: string
 components:
   schemas:
     crupdateBook:
