@@ -289,6 +289,31 @@ paths:
                     properties:
                       body:
                         $ref: "#/components/schemas/Author"
+  /books/import:
+    post: 
+        tags:
+          - "Books"
+        summary: Import books from JSON file 
+        operationId: importBooksFromJson
+        requestBody:
+          content:
+            application/json:
+              schema: 
+                type: array
+                items:
+                  $ref: '#/components/schemas/Book'
+    responses:
+      200: 
+        description: list of imported books 
+        content:  
+          application/json:
+            schema: 
+              allOf:
+                - $ref: "#/components/responses/CommonResponse"
+                - type: object
+                  properties:
+                    body:
+                      $ref: "#/components/schemas/Book"
 components:
   schemas:
     crupdateBook:
