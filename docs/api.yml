@@ -273,6 +273,28 @@ paths:
                 type: array
                 items: 
                   $ref: '#/components/schemas/topic'
+  /topic/authors:
+    put:
+      tags:
+        - "Topics"
+      summary: associate multiple topic ti an author
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+              $ref: "#/components/schemas/UpdateTopicAuthor"
+      responses:
+        200:
+          description: Topoic has been associate to an author
+          content:
+            application/json:
+              schema: 
+                type: array
+                items:
+                  $ref: "#/components/schemas/topic"
 components:
   schemas:
     crupdateBook:
@@ -318,6 +340,16 @@ components:
       allOf:
           - $ref: "#/components/schemas/Author"
           - $ref: "#/components/schemas/CrupdateTopic"
+    UpdateTopicAuthor:
+      type: object
+      properties:
+        topicId: 
+          type: string
+        authorId:
+          type: string
+      required:
+          - topicId
+          - authorId
     Sex:
       type: string
       enum:
