@@ -232,6 +232,21 @@ paths:
               application/json:
                 schema:
                   $ref: '#/components/schemas/topic'
+  /authorsTopics:
+    get:
+      summary: Get the list of author topic
+      tags:
+        - "Topics"
+      operationId: getAuthorsTopics
+      responses:
+        200:
+          description: the list of the authorTopic 
+          content:
+            application/json:
+              schema: 
+                type: array
+                items:
+                  $ref: "#/components/schemas/topic"
 components:
   schemas:
     crupdateBook:
@@ -241,8 +256,6 @@ components:
           type: string
         bookName:
           type: string
-        author:
-          $ref: '#/components/schemas/Author'
         pageNumbers:
           type: integer
         topic:
@@ -265,17 +278,20 @@ components:
             - ROMANCE
             - ADVENTURE
             - OTHER
+    Author:
+          type: object
+          properties:
+            id:
+              type: string
+            authorName: 
+              type: string
+            sex:
+              $ref: "#/components/schemas/Sex"
     topic:
       type: object
-    Author:
-      type: object
-      properties:
-        id:
-          type: string
-        authorName:
-          type: string
-        sex:
-          $ref: '#/components/schemas/Sex'
+      allOf:
+          - $ref: "#/components/schemas/Author"
+          - $ref: "#/components/schemas/CrupdateTopic"
     Sex:
       type: string
       enum:
