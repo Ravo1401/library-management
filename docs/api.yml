@@ -291,18 +291,18 @@ paths:
                         $ref: "#/components/schemas/Author"
   /books/import:
     post: 
-        tags:
-          - "Books"
-        summary: Import books from JSON file 
-        operationId: importBooksFromJson
-        requestBody:
+      tags:
+        - "Books"
+      summary: Import books from JSON file 
+      operationId: importBooksFromJson
+      requestBody:
           content:
             application/json:
               schema: 
                 type: array
                 items:
                   $ref: '#/components/schemas/Book'
-    responses:
+      responses:
         200: 
           description: list of imported books 
           content:  
@@ -318,32 +318,38 @@ paths:
     post:
       tags:
         - "Authors"
-      summary: Import authors from JSON or Excel file
-      operationId: importAuthors
+      summary: Import authors from JSON file
+      operationId: importAuthorsFromJson
       requestBody:
+        required: true
+        description: Import authors from a JSON file
         content:
           application/json:
             schema:
-              type: array
-              items:
-                $ref: "#/components/schemas/ImportAuthor"
-          application/vnd.openxmlformats-officedocument.spreadsheetml.sheet:
-            schema:
-              type: array
-              items:
-                $ref: "#/components/schemas/ImportAuthorExcel"
-    responses:
-      200:
-        description: List of imported authors
-        content:
-          application/json:
-            schema:
-              allOf:
-                - $ref: "#/components/responses/CommonResponse"
-                - type: object
-                  properties:
-                    body:
-                      $ref: "#/components/schemas/Author"
+              type: object
+              properties:
+                file_type:
+                  type: string
+                  enum:
+                    - JSON
+                authors:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/ImportAuthor'
+      responses:
+        200:
+          description: List of imported authors
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: "#/components/responses/CommonResponse"
+                  - type: object
+                    properties:
+                      body:
+                        type: array
+                        items:
+                          $ref: "#/components/schemas/Author"
 components:
   schemas:
     crupdateBook:
